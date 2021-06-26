@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  encoding: utf8mb4
+  database: integration_payment_system
+  username: root
+  password: qwer4321
+  host: db
+
+test:
+  adapter: mysql2
+  encoding: utf8mb4
+  database: integration_payment_system_test
+  username: root
+  password: qwer4321
+  host: db
