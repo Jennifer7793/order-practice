@@ -1,24 +1,21 @@
-# README
+#### Setup Project in Docker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+`$ docker-compose up`
 
-Things you may want to cover:
+#### 考試題目
 
-* Ruby version
+目標製作報表如下圖![存取款統計報表](./image.png)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. order has two kind of service_type:
+    1. deposit(代收): payment_type not nil
+    2. withdraw(代付): payment_type is nil
+1. 欄位解釋
+    1. 日期：當周(4/1~4/7)
+    1. 第三方支付：顯示出ThirdPartyPayment的Name
+    1. 交易類型：將代收與代付分開統計
+    1. 總單數：該商戶當週代收 或 代付的總訂單數量
+    1. 總成功單數：該商戶當都訂單狀態為paid(已支付)notified(已通知)
+    1. 成功率：總成功單數/總單數
+    1. 總手續費：成功訂單fee欄位總和
+    1. 總金額：成功訂單amount總和
+1. 製作一張相同的報表 不需要有上方的filter 也不需要有任何的版面渲染 當計算印出內容在root path即可
