@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  include AASM
   serialize :raw_data
   serialize :raw_callback
   belongs_to :payment_type, optional: true
