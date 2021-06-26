@@ -2,6 +2,15 @@
 
 `$ docker-compose up`
 
+#### 環境參數
+1. 資料庫: integration_payment_system
+1. 帳號密碼: root/qwer4321
+
+#### docker相關
+1. 進入docker容器：`docker-compose run app bash`，進去後就是正常的開發環境，可以執行`rails c`、`rails db:migrate`之類的指令
+1. 關閉docker: docker-compose down
+1. 執行前需要先關閉本地mysql(3306 port)與rails server(port 3000)
+
 #### 考試題目
 
 目標製作報表如下圖![存取款統計報表](./image.png)
