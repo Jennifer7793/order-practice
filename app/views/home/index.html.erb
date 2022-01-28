@@ -1,0 +1,44 @@
+<h1>存取款統計</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>日期</td>
+      <td>第三方支付</td>
+      <td>交易類型</td>
+      <td>總單數</td>
+      <td>總成功單數</td>
+      <td>成功率</td>
+      <td>總手續費</td>
+      <td>總金額</td>
+    </tr>
+  </thead>
+  <tbody>
+      <%# byebug %>
+    <tr><% @third.each do |third_party_payment| %>
+      <td>本周</td>
+      <%# byebug %>
+      <%#= third_party_payment.orders.all.service_type %>
+      <td><%=third_party_payment.name%></td>
+      <%# byebug %>
+      <td>
+        <% if third_party_payment.orders.where.not(payment_type: nil) %>
+          代收
+        <% else %>
+          代付
+        <% end %>
+      </td>
+      <td><%= b = third_party_payment.orders.where.not(payment_type: nil).count.to_f %></td>
+      <td><%= a = third_party_payment.orders.where.not(payment_type: nil).where(state: ["paid", "notified"]).count %></td>
+      <td>
+        <% a = third_party_payment.orders.where.not(payment_type: nil).where(state: ["paid", "notified"]).count %>
+        <% b = third_party_payment.orders.where.not(payment_type: nil).count.to_f %>
+        <%= b.zero? ? 0 : ((a/b).to_f*100).round(2) %>%
+      </td>
+      <td><%= third_party_payment.orders.where.not(fee: nil).sum(&:fee) %></td>
+      <td><%= third_party_payment.orders.where.not(amount: nil).sum(&:amount).to_i %></td> 
+    </tr>
+  </tbody>
+  <%# end %>
+<% end %>
+</table>
