@@ -14,18 +14,14 @@
     </tr>
   </thead>
   <tbody>
-      <%# byebug %>
     <tr><% @third.each do |third_party_payment| %>
       <td>本周</td>
-      <%# byebug %>
-      <%#= third_party_payment.orders.all.service_type %>
       <td><%=third_party_payment.name%></td>
-      <%# byebug %>
       <td>
-        <% if third_party_payment.orders.where.not(payment_type: nil) %>
-          代收
-        <% else %>
+        <% if (third_party_payment.orders.where.(payment_type: [NOT_nil, "deposit"]) %>
           代付
+        <% else %>
+          代收
         <% end %>
       </td>
       <td><%= b = third_party_payment.orders.where.not(payment_type: nil).count.to_f %></td>
@@ -37,6 +33,7 @@
       </td>
       <td><%= third_party_payment.orders.where.not(fee: nil).sum(&:fee) %></td>
       <td><%= third_party_payment.orders.where.not(amount: nil).sum(&:amount).to_i %></td> 
+      <td><%= Order.select("amount, fee").group("third_party_payment") %></td>
     </tr>
   </tbody>
   <%# end %>
